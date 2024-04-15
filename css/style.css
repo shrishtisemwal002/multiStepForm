@@ -70,7 +70,7 @@ button {
     width: 80%;
     overflow: hidden;
 }
-form > p {
+form > h1 {
     text-align: center;
     font-size: 3em;
     font-weight: bold;
@@ -87,7 +87,7 @@ form input, form textarea, .dropdownMenu{
 .formContainer > form {
     position: absolute;
     width: 60%;
-    transition: 2s;
+    /* transition: 2s; */
 }
 
 #experienceDetailForm, #educationDetailForm, #skillDetailForm, #messageContainer {  
@@ -109,7 +109,7 @@ form > div {
     justify-content: center;
 }
 
-.button {
+.button, .prevButton {
     background: linear-gradient(to top, blue,rgb(142, 200, 233));
     color: white;
     padding: 1rem 2rem;
@@ -117,6 +117,9 @@ form > div {
     font-weight: bold;
 }
 
+/* form input:focus {
+    outline: none;
+} */
 /* for resume page */
 
 .resumeContainer {
@@ -135,4 +138,7 @@ form > div {
 .right {
     width: 65%;
     border: 2px solid blue;
+}
+button:disabled {
+    cursor:not-allowed !important;
 }
