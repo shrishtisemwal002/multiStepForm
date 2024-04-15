@@ -1,25 +1,24 @@
-// let val = document.getElementById("invalidphoneNumber")
-// val.innerText ="jalkdsfjlaksjdf"
-
-let buttonNodeListArray = Array.from(document.getElementsByClassName("button"))
-// console.log(buttonNodeListArray);
-
 var personalDetailForm = document.getElementById("personalDetailForm");
 var experienceDetailForm = document.getElementById("experienceDetailForm");
 var educationDetailForm = document.getElementById("educationDetailForm");
-var skillDetailForm = document.getElementById("skillDetailForm");
 
 var personalDetailHeading = document.getElementById("personalDetailHeading");
 var experienceDetailHeading = document.getElementById("experienceDetailHeading");
 var educationDetailHeading = document.getElementById("educationDetailHeading");
-var skillDetailHeading = document.getElementById("skillDetailHeading");
+
+var firstNextBtn = document.getElementById("firstNextBtn");
+
+var backBtn = document.getElementById("experienceBackBtn");
+var nextBtn = document.getElementById("experienceNextBtn");
+
+var educationBackBtn = document.getElementById("educationBackBtn");
+var educationNextBtn = document.getElementById("educationNextBtn");
 
 function disableBtn(nextBtn,errors){
     return nextBtn.disabled=Array.from(errors).some((error)=>error.innerText)
 }
 
 var step = document.querySelectorAll(".formStep");
-// console.log(step);
 step.forEach((formStep)=>{
     const nextBtn=formStep.querySelector(".button");
     const inputs=formStep.querySelectorAll("input");
@@ -30,23 +29,16 @@ step.forEach((formStep)=>{
             disableBtn(nextBtn,errors)
         })
     })
-
-// console.log(inputs);
-// console.log(errors);
-
-
 })
 
-var firstNextBtn = document.getElementById("firstNextBtn");
-
-var backBtn = document.getElementById("experienceBackBtn");
-var nextBtn = document.getElementById("experienceNextBtn");
-
-var educationBackBtn = document.getElementById("educationBackBtn");
-var educationNextBtn = document.getElementById("educationNextBtn");
-
-var skillBackBtn = document.getElementById("skillBackBtn");
-var skillSaveBtn = document.getElementById("skillSaveBtn");
+function isEmpty(input,error) {
+    if(input.value == ""){
+        error.innerText = "This field is required";
+    }
+    else{
+        error.innerText="";
+    }
+}
 
 let formData={}
 
@@ -59,19 +51,20 @@ firstNextBtn.onclick = function(event) {
         isEmpty(field,field.nextElementSibling)
         if(disableBtn(event.target,errors)){
             return;
-        }  
+        }
+        if(field.hasAttribute('name')) {
+            formData[field.name] = field.value;
+        }
     })
 
     localStorage.setItem("stepFormData",JSON.stringify(formData))
-    event.preventDefault();
     navigateForward(personalDetailForm, experienceDetailForm, personalDetailHeading, experienceDetailHeading);
-    
+    event.preventDefault();
 }
 
 backBtn.onclick = function(event) {
     event.preventDefault();
-    navigateBackward(experienceDetailForm, personalDetailForm, experienceDetailHeading, personalDetailHeading);
-    
+    navigateBackward(experienceDetailForm, personalDetailForm, experienceDetailHeading, personalDetailHeading); 
 }
 
 nextBtn.onclick = function(event) {
@@ -83,13 +76,18 @@ nextBtn.onclick = function(event) {
    formFields.forEach((field)=>{
         isEmpty(field,field.nextElementSibling)
         if(disableBtn(event.target,errors)){
+            console.log("error");
             return;
-        }  
-    })
+        } 
+        if(field.hasAttribute('name')) {
+            formData[field.name] = field.value;
+        } 
+    });
 
     localStorage.setItem("stepFormData",JSON.stringify(formData))
-    event.preventDefault();
+   
     navigateForward(experienceDetailForm, educationDetailForm, experienceDetailHeading, educationDetailHeading);
+    event.preventDefault();
     
 }
 
@@ -110,6 +108,9 @@ educationNextBtn.onclick = function(event) {
         if(disableBtn(event.target,errors)){
             return;
         }  
+        if(field.hasAttribute('name')) {
+            formData[field.name] = field.value;
+        }
     })
 
     localStorage.setItem("stepFormData",JSON.stringify(formData));
@@ -126,7 +127,6 @@ educationNextBtn.onclick = function(event) {
 
     event.preventDefault();
 }
-
 
 // Function to move to the next form
 function navigateForward(currentForm, nextForm, currentHeading, nextHeading) {
@@ -153,7 +153,6 @@ function navigateBackward(currentForm, prevForm, currentHeading, prevHeading) {
     prevHeading.style.color = "blue";
 }
 
-
 // validations 
 
 function validatePersonalForm(event) {
@@ -163,7 +162,7 @@ function validatePersonalForm(event) {
     var jobTitle = event.target.value+event.key;
     var email = event.target.value+event.key;
     var phoneNumber = event.target.value + event.key;
-    var address = document.getElementById("address").value;
+    var address = event.target.value + event.key;
 
     var isValid = false;
     if ((event.target.id === "firstName" && !isString(firstName))) {
@@ -174,8 +173,7 @@ function validatePersonalForm(event) {
         document.getElementById("invalidFirstName").innerHTML = "Invalid First Name";
         isValid = false;
     } else {
-        // console.log("")
-        // console.log(event.target.value);
+
         document.getElementById("firstName").style.border = "1px solid black";
         document.getElementById("firstName").style.outline = "none";
         document.getElementById("invalidFirstName").innerHTML = "";
@@ -209,19 +207,7 @@ function validatePersonalForm(event) {
         document.getElementById("invalidJobTitle").innerHTML = "";
         isValid = true;
     }
-    // console.log(event.key);
-    // if(event.key == 'Backspace')
-    // {
-    //     if(phoneNumber.length < 11)
-    //     {
-    //         document.getElementById("phoneNumber").style.border = "1px solid red";
-    //         document.getElementById("phoneNumber").style.outline = "1px solid red";
-            
-    //         document.getElementById("invalidPhoneNumber").innerText = "Phone number cannot contain letters";
-    //         isValid = false;
-    //     }
-    // }
-    // console.log(phoneNumber)
+
     if(event.target.id === "phoneNumber" && (phoneNumber.length > 10 || isNaN(phoneNumber)) && event.key !='Backspace'){
         event.preventDefault();
 
@@ -238,7 +224,6 @@ function validatePersonalForm(event) {
         document.getElementById("invalidPhoneNumber").innerText = "";  
     }
 
-
     if (event.target.id === "email" && !validEmail(email)) {
 
         document.getElementById("email").style.border = "1px solid red";
@@ -251,42 +236,43 @@ function validatePersonalForm(event) {
         document.getElementById("invalidEmail").innerText = "";
         isValid = true;
     }
-    // console.log(address)
-    if(address.trim() === "" ) {
+    console.log(address)
+    if(event.target.id === "address" && address.trim() == "") {
+        console.log(address);
         document.getElementById("address").style.border = "1px solid red";
         document.getElementById("address").style.outline = "1px solid red";
 
         document.getElementById("invalidAddress").innerText = "This field is required";
         isValid = false;
-    }else {
+    }
+    else {
         document.getElementById("address").style.border = "1px solid black";
         document.getElementById("address").style.outline = "";
         document.getElementById("invalidAddress").innerText = "";
         isValid = true;
     }
-
     return isValid;
 }
 
 function validateExperienceForm(event) {
-    var companyName = document.getElementById("companyName").value;
+    var companyName = event.target.value+event.key;
     var title = event.target.value+event.key;
     var city = event.target.value+event.key;
     var country = event.target.value+event.key;
 
     var isValid = false;
-
-    if (companyName.trim() === "") {
+    console.log(companyName);
+    if (event.target.id=="companyName" && !isValidName(companyName)) {
         // console.log(companyName);
 
         document.getElementById("companyName").style.border = "1px solid red";
         document.getElementById("companyName").style.outline = "1px solid red";
-        document.getElementById("invalidCompanyName").innerHTML = "This field is required";
+        document.getElementById("invalidCompanyName").innerHTML = "Error";
         isValid = false;
     } else {
-        document.getElementById("lastName").style.border = "1px solid black";
-        document.getElementById("lastName").style.outline = "";
-        document.getElementById("invalidLastName").innerHTML = "";
+        document.getElementById("companyName").style.border = "1px solid black";
+        document.getElementById("companyName").style.outline = "";
+        document.getElementById("invalidCompanyName").innerHTML = "";
 
     }
 
@@ -321,7 +307,7 @@ function validateExperienceForm(event) {
         event.preventDefault();
 
         document.getElementById("country").style.border = "1px solid red";
-        document.getElementById("country").style.outline = "1 px solid red";
+        document.getElementById("country").style.outline = "1px solid red";
         document.getElementById("invalidCountry").innerHTML = "Country name cannot contains digits";
         isValid = false;
     } else {
@@ -332,16 +318,107 @@ function validateExperienceForm(event) {
     return isValid;
 }
 
+function validateEducationForm(event) {
+    const highestDegree = event.target.value+event.key;
+    const universityName = event.target.value+event.key;
+    const intermediateSchoolName = event.target.value+event.key;
+    const intermediateSchoolCity = event.target.value+event.key;
+    const matriculateSchoolName = event.target.value+event.key;
+    const matriculateSchoolCity = event.target.value+event.key;
+
+    let isValid =true;
+
+    if(event.target.id == "highestDegree" && !isValidName(highestDegree)){
+        event.preventDefault();
+
+        document.getElementById("highestDegree").style.border = "1px solid red";
+        document.getElementById("highestDegree").style.outline = "1px solid red";
+        document.getElementById("invalidDegreeName").innerText = "Name cannot contain digits";
+        isValid = false;
+    } else {
+        document.getElementById("highestDegree").style.border = "1px solid black";
+        document.getElementById("highestDegree").style.outline = "";
+        document.getElementById("invalidDegreeName").innerText = "";
+    }
+
+    if(event.target.id == "universityName" && !isValidName(universityName)){
+        event.preventDefault();
+
+        document.getElementById("universityName").style.border = "1px solid red";
+        document.getElementById("universityName").style.outline = "1px solid red";
+        document.getElementById("invalidUniversityName").innerText = "Name cannot contain digits";
+        isValid = false;
+    } else {
+        document.getElementById("universityName").style.border = "1px solid black";
+        document.getElementById("universityName").style.outline = "";
+        document.getElementById("invalidUniversityName").innerText = "";
+    }
+
+    if(event.target.id == "intermediateSchoolName" && !isValidName(intermediateSchoolName)){
+        event.preventDefault();
+
+        document.getElementById("intermediateSchoolName").style.border = "1px solid red";
+        document.getElementById("intermediateSchoolName").style.outline = "1px solid red";
+        document.getElementById("invalidIntermediateSchoolName").innerText = "Name cannot contain digits";
+        isValid = false;
+    } else {
+        document.getElementById("intermediateSchoolName").style.border = "1px solid black";
+        document.getElementById("intermediateSchoolName").style.outline = "";
+        document.getElementById("invalidIntermediateSchoolName").innerText = "";
+    }
+
+    if(event.target.id == "intermediateSchoolCity" && !isString(intermediateSchoolCity)){
+        event.preventDefault();
+
+        document.getElementById("intermediateSchoolCity").style.border = "1px solid red";
+        document.getElementById("intermediateSchoolCity").style.outline = "1px solid red";
+        document.getElementById("invalidIntermediateSchoolCity").innerText = "City cannot contain digits";
+        isValid = false;
+    } else {
+        document.getElementById("intermediateSchoolCity").style.border = "1px solid black";
+        document.getElementById("intermediateSchoolCity").style.outline = "";
+        document.getElementById("invalidIntermediateSchoolCity").innerText = "";
+    }
+
+
+    if(event.target.id == "matriculateSchoolName" && !isValidName(matriculateSchoolName)){
+        event.preventDefault();
+
+        document.getElementById("matriculateSchoolName").style.border = "1px solid red";
+        document.getElementById("matriculateSchoolName").style.outline = "1px solid red";
+        document.getElementById("invalidMatriculateSchoolName").innerText = "Name cannot contain digits";
+        isValid = false;
+    } else {
+        document.getElementById("matriculateSchoolName").style.border = "1px solid black";
+        document.getElementById("matriculateSchoolName").style.outline = "";
+        document.getElementById("invalidMatriculateSchoolName").innerText = "";
+    }
+
+    if(event.target.id == "matriculateSchoolCity" && !isString(matriculateSchoolCity)){
+        event.preventDefault();
+
+        document.getElementById("matriculateSchoolCity").style.border = "1px solid red";
+        document.getElementById("matriculateSchoolCity").style.outline = "1px solid red";
+        document.getElementById("invalidMatriculateSchoolCity").innerText = "City cannot contain digits";
+        isValid = false;
+    } else {
+        document.getElementById("matriculateSchoolCity").style.border = "1px solid black";
+        document.getElementById("matriculateSchoolCity").style.outline = "";
+        document.getElementById("invalidMatriculateSchoolCity").innerText = "";
+    }
+
+    return isValid;
+}
+
+
 function isString(str) {
     var flag = true;
     str = str.toLowerCase()
-    // console.log(str)
     for (var i = 0; i < str.length; i++) {
         if( !(str[i]>='a' && str[i]<='z') && str[i]!='Backspace'){
             flag = false;
             break;
         }
-        
     }
     return flag;
 }
@@ -349,13 +426,11 @@ function isString(str) {
 
 function validPhoneNumber(value) {
     var flag = true;
-    // console.log(value);
     for (var i = 0; i < value.length; i++) {
         if( !(value[i]>=0 && value[i]<=9) && value[i]!='Backspace'){
             flag = false;
             break;
-        }
-        
+        }   
     }
     return flag;
 }
@@ -388,12 +463,7 @@ function validEmail(email) {
     return true;
 }
 
-function isEmpty(input,error) {
-    if(input.value == ""){
-        error.innerText = "This field is required";
-        
-    }
-    else{
-        error.innerText="";
-    }
+function isValidName(str) {
+    var regex = /^[a-zA-Z\s.]+$/;
+    return regex.test(str);
 }

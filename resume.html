@@ -30,8 +30,7 @@
                     <p class="fw-bold">Title:  <span id="title" class="fw-normal"></span></p>
                     <p class="fw-bold">City:  <span id="city" class="fw-normal"></span></p>
                     <p class="fw-bold">Country: <span id="country" class="fw-normal"></span></p>
-                    <p class="fw-bold">Start Date: <span id="startDate" class="fw-normal"></span></p>
-                    <p class="fw-bold">End Date: <span id="endDate" class="fw-normal"></span> </p>
+                    <p class="fw-bold">Job Title: <span id="jobDescription" class="fw-normal"></span></p>
 
                 </div>
                 <div id="thirdFormDetails">
@@ -39,11 +38,10 @@
 
                     <p class="fw-bold">Highest Degree: <span id="highestDegree" class="fw-normal"></span></p>
                     <p class="fw-bold">University Name:  <span id="universityName" class="fw-normal"></span></p>
-                    <p class="fw-bold">Session:  <span id="session" class="fw-normal"></span></p>
-                    <p class="fw-bold">Score: <span id="score" class="fw-normal"></span></p>
-                    <p class="fw-bold">School Name: <span id="schoolName" class="fw-normal"></span></p>
-                    <p class="fw-bold">Session: <span id="schoolSession" class="fw-normal"></span> </p>
-                    <p class="fw-bold">Score: <span id="schoolScore" class="fw-normal"></span></p>
+                    <p class="fw-bold">Intermediate School Name:  <span id="intermediateSchoolName" class="fw-normal"></span></p>
+                    <p class="fw-bold">Intermediate School City: <span id="intermediateSchoolCity" class="fw-normal"></span></p>
+                    <p class="fw-bold">Matriculate School Name: <span id="matriculateSchoolName" class="fw-normal"></span></p>
+                    <p class="fw-bold">Matriculate School City: <span id="matriculateSchoolCity" class="fw-normal"></span> </p>
 
                 </div>
             </div>
@@ -67,24 +65,16 @@
             document.getElementById("title").textContent = userData["title"];
             document.getElementById("city").textContent = userData["city"];
             document.getElementById("country").textContent = userData["country"];
-            document.getElementById("startDate").textContent = userData["startDate"];
-            document.getElementById("endDate").textContent = userData["endDate"];
+            document.getElementById("jobDescription").textContent = userData["Job Description"];
 
 
             document.getElementById("highestDegree").textContent = userData["highestDegree"];
             document.getElementById("universityName").textContent = userData["universityName"];
-            document.getElementById("session").textContent = userData["session"];
-            document.getElementById("score").textContent = userData["score"];
-            document.getElementById("schoolName").textContent = userData["schoolName"];
-            document.getElementById("schoolSession").textContent = userData["schoolSession"];
-            document.getElementById("schoolScore").textContent = userData["schoolScore"];
-            
-            
-
-
+            document.getElementById("intermediateSchoolName").textContent = userData["intermediateSchoolName"];
+            document.getElementById("intermediateSchoolCity").textContent = userData["intermediateSchoolCity"];
+            document.getElementById("matriculateSchoolName").textContent = userData["matriculateSchoolName"];
+            document.getElementById("matriculateSchoolCity").textContent = userData["matriculateSchoolCity"];
         })
-
-
         
     </script>
 </body>

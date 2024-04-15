@@ -87,14 +87,12 @@ form input, form textarea, .dropdownMenu{
 .formContainer > form {
     position: absolute;
     width: 60%;
-    /* transition: 2s; */
 }
 
 #experienceDetailForm, #educationDetailForm, #skillDetailForm, #messageContainer {  
     position: absolute;
     right: -620px;
 }
-
 
 form > div {
     justify-content: space-between;
@@ -117,28 +115,7 @@ form > div {
     font-weight: bold;
 }
 
-/* form input:focus {
-    outline: none;
-} */
-/* for resume page */
-
-.resumeContainer {
-    display: flex;
-    width: 70%;
-    height: 1000px;
-    border: 1px solid red;
-    background-color: white;
-    margin: 2% auto;
-}
-.left {
-    width: 35%;
-    border: 2px solid blue;
-    background-color: red;
-}
-.right {
-    width: 65%;
-    border: 2px solid blue;
-}
-button:disabled {
+.button:disabled {
     cursor:not-allowed !important;
+    background-color: grey !important;
 }
