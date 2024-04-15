@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to top, blue,rgb(142, 200, 233));
+}
+button {
+    padding: 3% 5%;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+}
+.containers, .loaderContainer, .inputFields, form>div, .descriptionField {
+    display: flex;
+}
+
+.inputFields, .descriptionField{
+    flex-direction: column;
+    padding: 2%;
+    width: 50%;   
+}
+.inputFields > label, .descriptionField > label {
+    padding: 1% 2%;
+    font-weight: bold;
+}
+.descriptionField > textarea, .descriptionField {
+    width: 100%;
+    resize: none;
+}
+
+.containers {
+    padding: 4% 2%;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.formContainer {
+    border: none;
+    padding: 2% 6%;
+    width: 80%;
+    margin: auto;
+    height: 800px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0px 13px 47px 0px black;
+}
+
+.loader {
+    width: 33.333%;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    background-color: blue;
+    color: white;
+    transition: 0.5s ease-in-out;
+    
+}
+.loaderContainer {
+    position: relative;
+    height: 50px;
+    width: 80%;
+    overflow: hidden;
+}
+form > p {
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    padding: 2%;
+    font-family: "Charm";
+}
+
+form input, form textarea, .dropdownMenu{
+    padding: 4%;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.formContainer > form {
+    position: absolute;
+    width: 60%;
+    transition: 2s;
+}
+
+#experienceDetailForm, #educationDetailForm, #skillDetailForm, #messageContainer {  
+    position: absolute;
+    right: -620px;
+}
+
+
+form > div {
+    justify-content: space-between;
+}
+
+.buttonContainer, .firstButtonContainer {    
+    width: 50%;
+    margin: 6% auto;
+}
+
+.firstButtonContainer {
+    justify-content: center;
+}
+
+.button {
+    background: linear-gradient(to top, blue,rgb(142, 200, 233));
+    color: white;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* for resume page */
+
+.resumeContainer {
+    display: flex;
+    width: 70%;
+    height: 1000px;
+    border: 1px solid red;
+    background-color: white;
+    margin: 2% auto;
+}
+.left {
+    width: 35%;
+    border: 2px solid blue;
+    background-color: red;
+}
+.right {
+    width: 65%;
+    border: 2px solid blue;
+}
