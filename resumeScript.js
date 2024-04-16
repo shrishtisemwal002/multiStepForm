@@ -49,13 +49,13 @@ firstNextBtn.onclick = function(event) {
 
    formFields.forEach((field)=>{
         isEmpty(field,field.nextElementSibling)
-        if(disableBtn(event.target,errors)){
-            return;
-        }
         if(field.hasAttribute('name')) {
             formData[field.name] = field.value;
         }
     })
+    if(disableBtn(event.target,errors)){
+        return;
+    }
 
     localStorage.setItem("stepFormData",JSON.stringify(formData))
     navigateForward(personalDetailForm, experienceDetailForm, personalDetailHeading, experienceDetailHeading);
@@ -75,14 +75,14 @@ nextBtn.onclick = function(event) {
 
    formFields.forEach((field)=>{
         isEmpty(field,field.nextElementSibling)
-        if(disableBtn(event.target,errors)){
-            console.log("error");
-            return;
-        } 
         if(field.hasAttribute('name')) {
             formData[field.name] = field.value;
         } 
     });
+    if(disableBtn(event.target,errors)){
+        console.log("error");
+        return;
+    } 
 
     localStorage.setItem("stepFormData",JSON.stringify(formData))
    
@@ -105,13 +105,14 @@ educationNextBtn.onclick = function(event) {
 
    formFields.forEach((field)=>{
         isEmpty(field,field.nextElementSibling)
-        if(disableBtn(event.target,errors)){
-            return;
-        }  
+
         if(field.hasAttribute('name')) {
             formData[field.name] = field.value;
         }
     })
+    if(disableBtn(event.target,errors)){
+        return;
+    }  
 
     localStorage.setItem("stepFormData",JSON.stringify(formData));
 
