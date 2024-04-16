@@ -54,6 +54,8 @@ firstNextBtn.onclick = function(event) {
         }
     })
     if(disableBtn(event.target,errors)){
+        // parent.getElementsByClassName("button").style.backgroundColor="grey";
+        console.log(firstNextBtn);
         return;
     }
 

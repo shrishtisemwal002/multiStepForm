@@ -117,5 +117,5 @@ form > div {
 
 .button:disabled {
     cursor:not-allowed !important;
-    background-color: grey !important;
+    background: grey !important;
 }
